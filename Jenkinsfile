@@ -1,28 +1,21 @@
-node("slave-1") {
-    
-pipeline {
-  agent {
+node ("slave-2"){
+   agent {
     docker { image 'node:latest' }
   }
-  stages {
-    stage('Install') {
-      steps { sh 'npm install' }
+
+    stage('Install node modules') {
+        sh "npm install"
     }
 
-    stage('Test') {
-      parallel {
-        stage('Static code analysis') {
-            steps { sh 'npm run-script lint' }
-        }
-        stage('Unit tests') {
-            steps { sh 'npm run-script test' }
-        }
-      }
+    stage("Test") {
+        sh "npm run test-headless"
     }
 
-    stage('Build') {
-      steps { sh 'npm run-script build' }
+    stage("Build") {
+        sh "npm run build --prod"
     }
-  }
-}
+    
+    stage("Copy") {
+        sh "cp -a /var/lib/jenkins/workspace/angular-pipeline/dist/jenkins-test/. /var/www/jenkins_test/html/"
+    }
 }
