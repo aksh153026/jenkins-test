@@ -1,4 +1,4 @@
-node {
+node ("slave-2"){
     stage('Checkout SCM') {
         git branch: 'master', url: 'git@github.com:raju1979/jenkins-test.git'
     }
