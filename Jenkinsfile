@@ -1,5 +1,7 @@
 node ("slave-2"){
-   
+   agent {
+    docker { image 'node:latest' }
+  }
 
     stage('Install node modules') {
         sh "npm install"
