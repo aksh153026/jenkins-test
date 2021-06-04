@@ -1,5 +1,6 @@
+pipeline {
 node ("slave-2"){
-   pipeline {
+   
   agent {
     docker { image 'node:latest' }
   }
