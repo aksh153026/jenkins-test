@@ -1,7 +1,5 @@
 node ("slave-2"){
-    stage('Checkout SCM') {
-        git branch: 'master', url: 'git@github.com:aksh153026/jenkins-test.git'
-    }
+   
 
     stage('Install node modules') {
         sh "npm install"
