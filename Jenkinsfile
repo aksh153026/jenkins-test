@@ -1,30 +1,21 @@
-pipeline {
-  agent {
-    docker { image 'node:latest' }
-  }
-  stages {
+node {
     stage('Checkout SCM') {
-       steps {
-        git branch: 'jenkins_test', url: 'git@github.com:aksh153026/jenkins-test.git'
-       }
+        git branch: 'jenkins_test', url: 'git@github.com:raju1979/jenkins-test.git'
     }
-    stage('Install') {
-      steps { sh 'npm install' }
+
+    stage('Install node modules') {
+        sh "npm install"
     }
- 
-    stage('Test') {
-      parallel {
-        stage('Static code analysis') {
-            steps { sh 'npm run-script lint' }
-        }
-        stage('Unit tests') {
-            steps { sh 'npm run-script test' }
-        }
-      }
+
+    stage("Test") {
+        sh "npm run test-headless"
     }
- 
-    stage('Build') {
-      steps { sh 'npm run-script build' }
+
+    stage("Build") {
+        sh "npm run build --prod"
     }
-  }
+    
+    stage("Copy") {
+        sh "cp -a /var/lib/jenkins/workspace/angular-pipeline/dist/jenkins-test/. /var/www/jenkins_test/html/"
+    }
 }
