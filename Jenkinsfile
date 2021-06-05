@@ -1,6 +1,6 @@
-node {
+node('master') {
     stage('Checkout SCM') {
-        git branch: 'jenkins_test', url: 'https://github.com/aksh153026/jenkins-test'
+        git branch: 'master', url: 'https://github.com/aksh153026/jenkins-test'
     }
 
     stage('Install node modules') {
