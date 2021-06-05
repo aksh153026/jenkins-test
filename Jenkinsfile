@@ -1,4 +1,4 @@
-node("master") {
+node("vagrant2") {
     stage('Checkout SCM') {
         git branch: 'jenkins_test', url: 'git@github.com:aksh153026/jenkins-test.git'
     }
