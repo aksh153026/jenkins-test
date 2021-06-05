@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  docker { image 'node:latest' }
     stages {
     stage('Checkout SCM') {
        steps {
